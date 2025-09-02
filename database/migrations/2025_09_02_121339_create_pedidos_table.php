@@ -17,9 +17,18 @@ return new class extends Migration
             $table->bigInteger('cliente_id')->unsigned()->nullable();
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->bigInteger('armazon_id')->unsigned()->nullable();
-            $table->string('nro_factura_pedido')->nullable();
-            $table->string('obs_laboratorio')->nullable();
 
+            $table->float('total')->default(0);
+            $table->float('total_neto')->default(0);
+            $table->float('total_exenta')->default(0);
+            $table->float('total_iva')->default(0);
+
+            $table->boolean('facturado')->default(0);
+
+            $table->string('codigo_cliente')->nullable();
+            $table->string('nro_factura')->nullable();
+            $table->string('obs_laboratorio')->nullable();
+            $table->string('obs_cliente')->nullable();
             $table->tinyInteger('estado_pago')->default(0);//0 pend 1 pagado
             $table->tinyInteger('tipo')->default(1);//1 normal 2 cortesia 3 garantia
             $table->string('motivo_cancelacion')->nullable();
