@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pedido;
 use Illuminate\Http\Request;
 
 class PedidosController extends Controller
@@ -11,7 +12,11 @@ class PedidosController extends Controller
      */
     public function index()
     {
-        //
+        $results = Pedido::all();
+        return response()->json([
+            'success'=>true,
+            'results'=>$results
+        ]);
     }
 
     /**
@@ -19,7 +24,26 @@ class PedidosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $datos = [
+            'factura_id',
+            'cliente_id',
+            'user_id',
+            'armazon_id',
+
+            'total',
+            'total_neto',
+            'total_iva',
+            'total_exenta',
+
+            'facturado',
+            'codigo_cliente',
+            'nro_factura',
+            'obs_cliente',
+            'obs_laboratorio',
+            'estado_pago',
+            'tipo',
+            'motivo_cancelacion'
+        ];
     }
 
     /**
