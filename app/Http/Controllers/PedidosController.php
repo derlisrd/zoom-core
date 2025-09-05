@@ -22,13 +22,15 @@ class PedidosController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $req)
     {
+        $user = $req->user();
+
         $datos = [
-            'factura_id',
-            'cliente_id',
-            'user_id',
-            'armazon_id',
+            'factura_id' =>null,
+            'cliente_id'=> $req->cliente_id ?? null,
+            'user_id' =>$user->id,
+            'armazon_id' =>$req->armazon_id,
 
             'total',
             'total_neto',
@@ -44,6 +46,8 @@ class PedidosController extends Controller
             'tipo',
             'motivo_cancelacion'
         ];
+
+
     }
 
     /**
