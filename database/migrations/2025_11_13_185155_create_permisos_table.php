@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('permisos', function (Blueprint $table) {
             $table->id();
+            $table->string('modulo');
+            $table->text('accion')->nullable();
             $table->timestamps();
         });
     }
