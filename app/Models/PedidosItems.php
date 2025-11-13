@@ -11,6 +11,7 @@ class PedidosItems extends Model
         'producto_id',
         'deposito_id',
         'cantidad',
-        'precio_venta'
+        'precio_venta',
+        'lado_item'
     ];
 }

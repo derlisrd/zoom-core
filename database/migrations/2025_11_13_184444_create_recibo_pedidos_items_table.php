@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pedidos_items', function (Blueprint $table) {
+        Schema::create('recibo_pedidos_items', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('recibo_id')->unsigned()->nullable();
             $table->bigInteger('pedido_id')->unsigned()->nullable();
-            $table->bigInteger('producto_id')->unsigned()->nullable();
-            $table->bigInteger('deposito_id')->unsigned()->nullable();
-            $table->bigInteger('deposito_id')->unsigned()->nullable();
-            $table->integer('lado_item')->default(0);
-            $table->float('precio_venta')->default(0);
+            $table->double('total')->default(0);
             $table->timestamps();
         });
     }
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pedidos_items');
+        Schema::dropIfExists('recibo_pedidos_items');
     }
 };
