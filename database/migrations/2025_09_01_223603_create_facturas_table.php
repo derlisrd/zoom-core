@@ -24,7 +24,7 @@ return new class extends Migration
             $table->float('total_iva10')->default(0);
 
             $table->string('numero')->nullable(); //numero de factura
-            $table->array('pedidos')->nullable(); // numero de pedidos o id
+            $table->text('pedidos')->nullable(); // numero de pedidos o id
             $table->boolean('pagado')->default(1); // 1 si 0 no
             $table->tinyInteger('condicion')->default(1); // 1 contado 2 credito
             $table->tinyInteger('estado')->default(1); // 0 anulado 1 normal
