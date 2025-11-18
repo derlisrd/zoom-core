@@ -49,12 +49,10 @@ class PedidosController extends Controller
             'cliente_id'=> $req->cliente_id ?? null,
             'user_id' =>1, //$user->id,
             'armazon_id' =>$req->armazon_id,
-
             'total'=>$importe_final,
             'total_neto'=>$importe_final,
             'total_iva'=>$req->total_iva,
             'total_exenta'=>$req->total_exenta,
-
             'facturado'=> 0,
             'codigo_cliente'=>$req->codigo_cliente,
             'nro_factura'=>null,
