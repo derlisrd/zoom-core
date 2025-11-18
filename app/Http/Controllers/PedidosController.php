@@ -29,17 +29,17 @@ class PedidosController extends Controller
     public function creaPedido(Request $req){
 
         $validatorPedido = Validator::make($req->all(), [
-            //'estado_pago'=> 'required|in:0,1',
-            //'total' => 'required|numeric|min:0',
+            'estado_pago'=> 'required|in:0,1',
+            'total' => 'required|numeric|min:0',
             'items' => 'required|array',
             'items.*.producto_id' => 'required|exists:productos,id',
-            'items.*.deposito_id' => 'required|exists:depositos,id',
+            //'items.*.deposito_id' => 'required|exists:depositos,id',
             'items.*.cantidad' => 'required|numeric|min:1',
             'items.*.precio_venta' => 'required|numeric|min:0',
-            'items.*.comision'=>'nullable|numeric|min:0'
+            //'items.*.comision'=>'nullable|numeric|min:0' 
         ]);
         if($validatorPedido->fails())
-            return response()->json(['success'=>false,'message'=> 'Error. '.$validatorPedido->errors()->first()],400);
+            return response()->json(['success'=>false,'message'=> 'Error. '.$validatorPedido->errors()->first()],400); 
 
         // AQUI SE DE CAMBIAR CUANDO YA ESTE EN PRODUCCION
         //$user = $req->user();
@@ -51,9 +51,9 @@ class PedidosController extends Controller
             'armazon_id' =>$req->armazon_id,
 
             'total'=>$importe_final,
-            'total_neto',
-            'total_iva',
-            'total_exenta',
+            'total_neto'=>$importe_final,
+            'total_iva'=>$req->total_iva,
+            'total_exenta'=>$req->total_exenta,
 
             'facturado'=> 0,
             'codigo_cliente'=>$req->codigo_cliente,
@@ -64,7 +64,7 @@ class PedidosController extends Controller
             'tipo'=>$req->tipo,
             'motivo_cancelacion'=>null
         ];
-         
+        
 
         DB::beginTransaction();
         try {
@@ -72,10 +72,10 @@ class PedidosController extends Controller
             foreach($req->items as $item){
                 PedidosItems::create([
                     'pedido_id'=>$pedido->id,
-                    'producto_id'=>1,
-                    'deposito_id'=>0,
-                    'cantidad'=>1,
-                    'precio_venta'=>10,
+                    'producto_id'=>$item->producto_id,
+                    'deposito_id'=>$item->deposito_id,
+                    'cantidad'=>$item->cantidad,
+                    'precio_venta'=>$item->precio_venta,
                     'lado_item'=>0,
                     'total'=>10
                 ]);
