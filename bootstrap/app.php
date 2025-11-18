@@ -93,7 +93,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->renderable(function (QueryException $e){
             return response()->json([
                 'success'=>false,
-                'message'=> 'Error de consulta en base de datos.'
+                'message'=> 'Error de consulta en base de datos. '. $e->getMessage() 
             ],500);
         });
         $exceptions->renderable(function (PDOException $e){

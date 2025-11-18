@@ -9,9 +9,9 @@ Route::prefix('/auth')->group(function(){
 
 Route::middleware(['auth:api'])->group(function () {
     
+});
 
     Route::prefix('/pedidos')->group(function(){
         Route::get('/',[PedidosController::class,'index']);
+        Route::post('/',[PedidosController::class,'creaPedido']);
     });
-
-});
