@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pedido;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PedidosController extends Controller
 {
@@ -22,11 +23,24 @@ class PedidosController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $req)
-    {
+    public function creaPedido(Request $req){
+
+        $validatorPedido = Validator::make($req->all(), [
+
+            'total' => 'required|numeric|min:0',
+            'items' => 'required|array',
+            'items.*.producto_id' => 'required|exists:productos,id',
+            'items.*.deposito_id' => 'required|exists:depositos,id',
+            'items.*.cantidad' => 'required|numeric|min:1',
+            'items.*.precio_venta' => 'required|numeric|min:0',
+            'items.*.descuento' => 'required|numeric|min:0',
+            'items.*.total' => 'required|numeric|min:0',
+            'items.*.comision'=>'nullable|numeric|min:0'
+        ]);
+
         $user = $req->user();
 
-        $datos = [
+        $datosPedido = [
             'factura_id' =>null,
             'cliente_id'=> $req->cliente_id ?? null,
             'user_id' =>$user->id,
@@ -37,14 +51,14 @@ class PedidosController extends Controller
             'total_iva',
             'total_exenta',
 
-            'facturado',
-            'codigo_cliente',
-            'nro_factura',
-            'obs_cliente',
-            'obs_laboratorio',
-            'estado_pago',
-            'tipo',
-            'motivo_cancelacion'
+            'facturado'=> 0,
+            'codigo_cliente'=>$req->codigo_cliente,
+            'nro_factura'=>null,
+            'obs_cliente'=>$req->obs_cliente,
+            'obs_laboratorio'=> $req->obs_laboratorio,
+            'estado_pago'=>$req->estado_pago,
+            'tipo'=>$req->tipo,
+            'motivo_cancelacion'=>null
         ];
 
 

@@ -16,9 +16,9 @@ return new class extends Migration
             $table->bigInteger('pedido_id')->unsigned()->nullable();
             $table->bigInteger('producto_id')->unsigned()->nullable();
             $table->bigInteger('deposito_id')->unsigned()->nullable();
-            $table->bigInteger('deposito_id')->unsigned()->nullable();
             $table->integer('lado_item')->default(0);
             $table->float('precio_venta')->default(0);
+            $table->float('descuento')->default(0);
             $table->timestamps();
         });
     }
